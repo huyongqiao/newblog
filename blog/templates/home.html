@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}首页{% endblock %}
+
+{% block page_content %}
+    <h1>帖子列表：</h1>
+    <ul>
+        {% for article in articles %}
+            <li><a href="/detail/?article_id={{ article.id }}">{{ article.title }}</a> &nbsp;
+                作者：{{ article.author }} &nbsp; 发表时间：{{ article.create_time }}
+                评论数量：{{ article.comment_count }}</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+    <h1>热贴榜 Top10</h1>
+
+    <ul>
+        {% for article,count in top10 %}
+            <li><a href="/detail/?article_id={{ article.id }}">{{ article.title }}</a> &nbsp; 作者：{{ article.author }} &nbsp; 访问次数：{{ count }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

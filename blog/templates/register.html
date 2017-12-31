@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}注册{% endblock %}
+
+{% block personResource %}
+    <script>
+        $(function () {
+
+            $('.username').change(function () {
+                var pre_username = $(this).val();
+                var url = "http://127.0.0.1:8000/check_user/";
+                $.get(url, {'username': pre_username}, function (JsonData) {
+                    $('span').html(JsonData.status)
+                })
+            })
+
+        })
+    </script>
+{% endblock %}
+
+{% block page_content %}
+
+    <form action="/register/" method="post">
+        {% csrf_token %}
+        <p>用户名：<input class="username" type="text" name="username" placeholder="请输入用户名"><span></span></p>
+        <p style="color:red">{{ form.errors.username.0 }}</p>
+        <p>邮 箱：<input type="text" name="email" placeholder="请输入注册邮箱"></p>
+        <p style="color:red">{{ form.errors.email.0 }}</p>
+        <p>密 码：<input type="password" name="password" placeholder="请输入6位以上密码"></p>
+        <p style="color:red">{{ form.errors.password.0 }}</p>
+        <p>确 认：<input type="password" name="password2" placeholder="请再次输入密码"></p>
+        <p style="color:red">{{ form.errors.password2.0 }}</p>
+        <p><input type="submit" value="注册"></p>
+    </form>
+
+{% endblock %}

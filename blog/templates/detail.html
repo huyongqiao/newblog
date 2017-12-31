@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}帖子详情{% endblock %}
+
+{% block personResource %}
+
+    <script src='/static/tiny_mce/tiny_mce.js'></script>
+
+    <script>
+        tinyMCE.init({
+            'mode':'textareas',
+            'theme':'advanced',
+            'width':500,'height':300,
+        })
+    </script>
+
+{% endblock %}
+
+{% block page_content %}
+    <div id="container">
+    <h1>{{ article.title }}</h1>
+    <h5>作者：{{ article.author }}</h5>
+    <h5>发表时间：{{ article.create_time }}</h5>
+    <h5>浏览量：{{ article.read_count }}</h5>
+
+    <hr>
+
+    {{ article.content|safe }}
+    <br>
+
+    {% if collect_flag %}
+        <p><a href="/del_collect/?article_id={{ article.id }}">删除收藏</a></p>
+    {% else %}
+        <p><a href="/add_collect/?article_id={{ article.id }}">添加收藏</a></p>
+    {% endif %}
+
+
+
+    <p><a href="#comment">我要评论</a></p>
+
+    <ul>
+        {% for comment in comments %}
+            <hr>
+            <li>
+                <p>{{ comment.author }}</p>
+                <p>{{ comment.content|safe }}</p>
+                <p>{{ comment.create_time }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <form action="/comment/" method="post" id="comment">
+        {% csrf_token %}
+        <textarea name="content"></textarea>
+        <input type="hidden" name="article_id" value="{{ article.id }}">
+        <input type="hidden" name="current_path" value="{{ current_path }}">
+        <input type="submit" value="提交评论" onclick="commentSuccess()">
+    </form>
+
+    <script type="text/javascript">
+        function commentSuccess() {
+            alert('评论成功');
+        }
+    </script>
+
+</div>
+{% endblock %}

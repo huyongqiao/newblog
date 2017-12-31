@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}上传头像{% endblock %}
+
+{% block page_content %}
+
+    <h1>上传头像</h1>
+    <form action="/upload_icon/" method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <input type="file" name="icon">
+        <input type="submit" value="上传">
+
+    </form>
+{% endblock %}

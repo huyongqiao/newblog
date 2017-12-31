@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}发帖{% endblock %}
+
+{% block personResource %}
+
+    <script src='/static/tiny_mce/tiny_mce.js'></script>
+    <script>
+        tinyMCE.init({
+            'mode':'textareas',
+            'theme':'advanced',
+            'width':600,'height':200,
+        })
+    </script>
+
+{% endblock %}
+
+{% block page_content %}
+    <form action="/post/" method="post">
+        {% csrf_token %}
+        <p><input type="text" name="title" placeholder="请输入文章标题："> </p>
+        <textarea name="content"></textarea>
+        <input type="submit" value="发表">
+    </form>
+{% endblock %}

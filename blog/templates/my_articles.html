@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}我的帖子{% endblock %}
+
+{% block page_content %}
+    <h1>我的帖子：</h1>
+    <hr>
+    <ul>
+        {% for article in articles %}
+            <li><a href="/detail/?article_id={{ article.id }}">{{ article.title }}</a> &nbsp;
+                作者：{{ article.author }} &nbsp; 发表时间：{{ article.create_time }}
+                <a href="/delete_article/?article_id={{ article.id }}">删除此帖</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

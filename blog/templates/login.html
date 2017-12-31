@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}登录{% endblock %}
+
+{% block page_content %}
+    <h1>请登录账号：</h1>
+    <form action="/login/" method="post">
+        {% csrf_token %}
+        <p><input type="text" name="username" placeholder="请输入用户名"></p>
+        <p><input type="password" name="password" placeholder="请输入密码"></p>
+        <p><input type="hidden" name="next_url" value="{{ next_url }}"></p>
+        <p><input type="submit" value="登录"></p>
+    </form>
+{% endblock %}
